@@ -1,0 +1,6 @@
+<div nz-row [nzGutter]="8">
+  <div nz-row>
+    <nz-input #userName (keyup)="goSearch(userName)" [nzType]="'search'" [nzPlaceHolder]="'请输入你要搜索的用户'" [(ngModel)]="search" style="width: 200px;"></nz-input>
+  </div>
+  <app-user-item [user]="user" *ngFor="let user of userArray"></app-user-item>
+</div>

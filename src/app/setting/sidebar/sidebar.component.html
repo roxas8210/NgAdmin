@@ -1,0 +1,20 @@
+<ul nz-menu [nzMode]="'inline'" nzTheme='dark'>
+  <li nz-menu-item>
+    <span title>
+        <i class="anticon anticon-home"></i>
+        <a (click)="goHome()">首页</a>
+    </span>
+  </li>
+  <li nz-menu-item>
+  <span title>
+      <i class="anticon anticon-team"></i>
+      <a routerLink="/setting/user">全部用户</a>
+    </span>
+  </li>
+  <li nz-menu-item>
+    <span title>
+      <i class="anticon anticon-plus"></i>
+      <a routerLink="/setting/user/new">新增用户</a>
+    </span>
+  </li>
+</ul>

@@ -1,0 +1,20 @@
+<div nz-col [nzSpan]="4">
+  <nz-card>
+    <ng-template #title>
+      {{userObj?.username}}
+    </ng-template>
+    <ng-template #extra>
+      <a [routerLink]="[{outlets:{primary: 'setting/user/new',sidebar: 'setting'}}]">
+        <button nz-button [nzType]="'primary'" [nzShape]="'circle'">
+          <i class="anticon anticon-edit"></i>
+        </button>
+      </a>
+      <button (click)="onDelete()" nz-button [nzType]="'danger'" [nzShape]="'circle'">
+        <i class="anticon anticon-delete"></i>
+      </button>
+    </ng-template>
+    <ng-template #body>
+      <p>{{userObj?.role}}</p>
+    </ng-template>
+  </nz-card>
+</div>
