@@ -49,26 +49,42 @@ export class NewUserComponent implements OnInit {
 
   submitForm($event: MouseEvent, value) {
     console.log(this.userForm);
-    const recordName = `user/${this.userServ.client.getUid()}`;
-    const record = this.userServ.client.record.getRecord(recordName);
-    const list = this.userServ.userList;
-    record.set(this.userForm.value);
-    list.on('entry-added', res => {
-      console.log('entry was added', res);
-      this.confirmServ.success({
-        title: 'success',
-        content: '成功添加一位用户'
-      });
-      this.router.navigate([
-        {
-          outlets: {
-            primary: 'setting/user',
-            sidebar: 'setting'
+    // const recordName = `user/${this.userServ.client.getUid()}`;
+    // const record = this.userServ.client.record.getRecord(recordName);
+    // const list = this.userServ.userList;
+    // record.set(this.userForm.value);
+    // list.on('entry-added', res => {
+    //   console.log('entry was added', res);
+    //   this.confirmServ.success({
+    //     title: 'success',
+    //     content: '成功添加一位用户'
+    //   });
+    //   this.router.navigate([
+    //     {
+    //       outlets: {
+    //         primary: 'setting/user',
+    //         sidebar: 'setting'
+    //       }
+    //     }
+    //   ]);
+    // });
+    // list.addEntry(recordName);
+    this.userServ.setUser(this.userForm.value, data => {
+      console.log(data);
+      if (data.result == 'created') {
+        this.confirmServ.success({
+          title: 'success',
+          content: '成功添加一位用户'
+        });
+        this.router.navigate([{
+            outlets: {
+              primary: 'setting/user',
+              sidebar: 'setting'
+            }
           }
-        }
-      ]);
+        ]);
+      }
     });
-    list.addEntry(recordName);
   }
 
   resetForm($event: MouseEvent) {

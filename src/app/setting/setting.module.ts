@@ -12,6 +12,7 @@ import { UserItemComponent } from './user-item/user-item.component';
 import { Deepstream } from '../deepstream.service';
 
 import { User } from './user.service';
+import { Esuser } from './es-user.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { User } from './user.service';
   declarations: [UserComponent, SidebarComponent, NewUserComponent, UserItemComponent],
   providers: [{
     provide: 'userService',
-    useClass: User
+    // useClass: User
+    useClass: Esuser
   }]
 })
 export class SettingModule { }

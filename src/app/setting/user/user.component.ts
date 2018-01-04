@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { User } from '../user.service';
-import * as elasticsearch from 'elasticsearch';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -15,7 +14,7 @@ export class UserComponent implements OnInit {
   search;
 
   constructor(
-    @Inject('userService') private userService: User
+    @Inject('userService') private userService
   ) {}
 
   ngOnInit() {
@@ -23,13 +22,17 @@ export class UserComponent implements OnInit {
     //   console.log(val);
     //   this.userArray = val;
     // });
-    this.userService.userList.subscribe(val => {
-      console.log(val);
-      this.userArray = val;
-    });
+    // this.userService.userList.subscribe(val => {
+    //   console.log(val);
+    //   this.userArray = val;
+    // });
 
-    this.userService.client.rpc.make('search-user-for-name', 'hello', (error, data) => {
-      console.log(`RPC的结果：${data}`);
+    // this.userService.client.rpc.make('search-user-for-name', 'hello', (error, data) => {
+    //   console.log(`RPC的结果：${data}`);
+    // });
+    this.userService.getAllUser(data => {
+      console.log('全部用户数据', data);
+      this.userArray = data;
     });
   }
 

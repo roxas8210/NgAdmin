@@ -9,7 +9,7 @@ import { NzModalService } from 'ng-zorro-antd';
 })
 export class UserItemComponent implements OnInit, OnDestroy {
 
-  @Input() user: string;
+  @Input() user;
 
   userObj: User;
 
@@ -19,10 +19,11 @@ export class UserItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.userServ.client.record.getRecord(this.user).subscribe(val => {
-      console.log(val);
-      this.userObj = val;
-    });
+    // this.userServ.client.record.getRecord(this.user).subscribe(val => {
+    //   console.log(val);
+    //   this.userObj = val;
+    // });
+    this.userObj = this.user._source;
   }
 
   ngOnDestroy() {

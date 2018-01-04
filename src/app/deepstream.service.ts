@@ -9,6 +9,6 @@ export class Deepstream {
     constructor() {}
 
     get Instance() {
-        return deepstream('localhost:6020').login();
+        return deepstream('roxas8210.iask.in:21656').login();
     }
 }
