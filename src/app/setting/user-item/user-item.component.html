@@ -5,7 +5,7 @@
     </ng-template>
     <ng-template #extra>
       <a [routerLink]="[{outlets:{primary: 'setting/user/new',sidebar: 'setting'}}]">
-        <button nz-button [nzType]="'primary'" [nzShape]="'circle'">
+        <button (click)="onUpdate()" nz-button [nzType]="'primary'" [nzShape]="'circle'">
           <i class="anticon anticon-edit"></i>
         </button>
       </a>
