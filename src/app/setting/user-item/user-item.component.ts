@@ -37,7 +37,10 @@ export class UserItemComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-    // this.router.navigate()
+    this.router.navigate(['setting/user/new', {
+      type: 'edit',
+      id: this.userId
+    }]);
   }
 
 }

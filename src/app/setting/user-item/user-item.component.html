@@ -4,11 +4,9 @@
       {{userObj?.username}}
     </ng-template>
     <ng-template #extra>
-      <a [routerLink]="[{outlets:{primary: 'setting/user/new',sidebar: 'setting'}}]">
-        <button (click)="onUpdate()" nz-button [nzType]="'primary'" [nzShape]="'circle'">
-          <i class="anticon anticon-edit"></i>
-        </button>
-      </a>
+      <button (click)="onUpdate()" nz-button [nzType]="'primary'" [nzShape]="'circle'">
+        <i class="anticon anticon-edit"></i>
+      </button>
       <button (click)="onDelete()" nz-button [nzType]="'danger'" [nzShape]="'circle'">
         <i class="anticon anticon-delete"></i>
       </button>

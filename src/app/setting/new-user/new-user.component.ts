@@ -5,13 +5,14 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../model/user.model';
 import { Department } from '../../model/department.model';
 import { Role } from '../../model/role.data';
 
 import { NzModalService } from 'ng-zorro-antd';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-new-user',
@@ -30,7 +31,8 @@ export class NewUserComponent implements OnInit {
     private fb: FormBuilder,
     @Inject('modal') private confirmServ: NzModalService,
     @Inject('userService') private userServ,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     // this.userForm = this.fb.group(new User());
     this.userForm = this.fb.group({
@@ -41,6 +43,18 @@ export class NewUserComponent implements OnInit {
   }
 
   ngOnInit() {
+    // this.route.paramMap.switchMap((val: ParamMap) => Rx.Observable.interval(1000)).subscribe(id => {
+    //   console.log('订阅的id', id);
+    // });
+    // this.route.paramMap.subscribe(val => {
+    //   console.log(val);
+    // });
+    this.route.paramMap.forEach(val => {
+      console.log('foreach返回值：', val);
+      return val;
+    }).then(val => {
+      console.log('promise返回值：', val);
+    });
   }
 
   getFormControl(name) {
@@ -68,11 +82,4 @@ export class NewUserComponent implements OnInit {
     });
   }
 
-  resetForm($event: MouseEvent) {
-    $event.preventDefault();
-    this.userForm.reset();
-    // for (const key in this.userForm.controls) {
-    //   this.userForm.controls[key].markAsPristine();
-    // }
-  }
 }

@@ -48,6 +48,20 @@ export class Esuser {
         });
     }
 
+    getUser(userId): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('get-user-by-id', userId, (error, data) => {
+                if (error) {
+                    console.log('获取一个用户发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('这个用户数据：', data);
+                    observer.next(data);
+                }
+            });
+        });
+    }
+
     searchUsers(username): Observable<any> {
         return new Observable(observer => {
             this.dp.Instance.rpc.make('search-user', username, (error, data) => {
