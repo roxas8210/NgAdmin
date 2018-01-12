@@ -50,7 +50,7 @@ export class Esuser {
 
     getUser(userId): Observable<any> {
         return new Observable(observer => {
-            this.dp.Instance.rpc.make('get-user-by-id', userId, (error, data) => {
+            this.dp.Instance.rpc.make('get-one-user', userId, (error, data) => {
                 if (error) {
                     console.log('获取一个用户发生错误', error);
                     observer.error(error);
@@ -76,15 +76,19 @@ export class Esuser {
         });
     }
 
-    updateUser(userId): Observable<any> {
+    updateUser(userId, data): Observable<any> {
+        const postData = {
+            id: userId,
+            data: data
+        };
         return new Observable(observer => {
-            this.dp.Instance.rpc.make('update-user', userId, (error, data) => {
+            this.dp.Instance.rpc.make('update-user', postData, (error, res) => {
                 if (error) {
                     console.log('更新发生错误', error);
                     observer.error(error);
                 } else {
-                    console.log('更新成功', data);
-                    observer.next(data);
+                    console.log('更新成功', res);
+                    observer.next(res);
                 }
             });
         });

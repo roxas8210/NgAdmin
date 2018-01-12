@@ -1,4 +1,4 @@
-<h1>新增用户</h1>
+<h1>{{type?'编辑用户':'新增用户'}}</h1>
 <form nz-form [formGroup]="userForm" (ngSubmit)="submitForm($event,userForm.value)" >
   <div nz-form-item nz-row>
     <div nz-form-label nz-col [nzSpan]="7">

@@ -13,6 +13,7 @@ import { Role } from '../../model/role.data';
 
 import { NzModalService } from 'ng-zorro-antd';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-new-user',
@@ -27,6 +28,10 @@ export class NewUserComponent implements OnInit {
 
   roles = Role;
 
+  type;
+
+  id;
+  
   constructor(
     private fb: FormBuilder,
     @Inject('modal') private confirmServ: NzModalService,
@@ -43,17 +48,24 @@ export class NewUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.route.paramMap.switchMap((val: ParamMap) => Rx.Observable.interval(1000)).subscribe(id => {
-    //   console.log('订阅的id', id);
-    // });
-    // this.route.paramMap.subscribe(val => {
-    //   console.log(val);
-    // });
-    this.route.paramMap.forEach(val => {
-      console.log('foreach返回值：', val);
-      return val;
-    }).then(val => {
-      console.log('promise返回值：', val);
+    const params: Observable<ParamMap> = this.route.paramMap;
+    params.map((val: ParamMap) => {
+      console.log('map参数：', val);
+      const paramObj = {
+        type: val.get('type'),
+        id: val.get('id')
+      };
+      return paramObj;
+    }).subscribe(val => {
+      console.log('路由参数：', val);
+      if (val.id !== null) {
+        this.userServ.getUser(val.id).subscribe(data => {
+          console.log('userForm:', data);
+          this.type = val.type;
+          this.id = val.id;
+          this.userForm.setValue(data._source);
+        });
+      }
     });
   }
 
@@ -64,22 +76,41 @@ export class NewUserComponent implements OnInit {
   submitForm($event: MouseEvent, value) {
     console.log(this.userForm);
     const that = this;
-    this.userServ.setUsers(this.userForm.value).subscribe(data => {
-      if (data.result == 'created') {
-        this.confirmServ.success({
-          title: 'success',
-          content: '成功添加一位用户',
-          onOk() {
-            that.router.navigate([{
-              outlets: {
-                primary: 'setting/user',
-                sidebar: 'setting'
-              }
-            }]);
-          }
-        });
-      }
-    });
+    if (this.type === 'edit') {
+      this.userServ.updateUser(this.id, this.userForm.value).subscribe(data => {
+        if (data.result == 'updated') {
+          this.confirmServ.success({
+            title: 'success',
+            content: '成功修改一位用户',
+            onOk() {
+              that.router.navigate([{
+                outlets: {
+                  primary: 'setting/user',
+                  sidebar: 'setting'
+                }
+              }]);
+            }
+          });
+        }
+      });
+    } else {
+      this.userServ.setUsers(this.userForm.value).subscribe(data => {
+        if (data.result == 'created') {
+          this.confirmServ.success({
+            title: 'success',
+            content: '成功添加一位用户',
+            onOk() {
+              that.router.navigate([{
+                outlets: {
+                  primary: 'setting/user',
+                  sidebar: 'setting'
+                }
+              }]);
+            }
+          });
+        }
+      });
+    }
   }
 
 }
