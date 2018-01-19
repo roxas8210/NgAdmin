@@ -23,4 +23,6 @@ nz-layout nz-header a {
 nz-layout article {
   padding: 20px;
   box-sizing: border-box;
+  background-color: white;
+  height: 100%;
 }
