@@ -14,6 +14,7 @@ import { Deepstream } from '../deepstream.service';
 import { User } from './user.service';
 import { Esuser } from './es-user.service';
 import { EditUserComponent } from './edit-user/edit-user.component';
+import { OrderTypeComponent } from './order-type/order-type.component';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  declarations: [UserComponent, SidebarComponent, NewUserComponent, UserItemComponent, EditUserComponent],
+  declarations: [UserComponent, SidebarComponent, NewUserComponent, UserItemComponent, EditUserComponent, OrderTypeComponent],
   providers: [{
     provide: 'userService',
     // useClass: User

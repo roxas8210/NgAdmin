@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { Deepstream } from '../deepstream.service';
+import { Order } from './order.service';
 
 @NgModule({
   imports: [
@@ -21,6 +22,9 @@ import { Deepstream } from '../deepstream.service';
   providers: [{
     provide: 'deepstream',
     useClass: Deepstream
+  }, {
+    provide: 'orderService',
+    useClass: Order
   }]
 })
 export class OrderModule { }

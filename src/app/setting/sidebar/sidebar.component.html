@@ -5,16 +5,28 @@
         <a (click)="goHome()">首页</a>
     </span>
   </li>
-  <li nz-menu-item>
-  <span title>
+  <li nz-submenu>
+    <span title>
       <i class="anticon anticon-team"></i>
-      <a routerLink="/setting/user">全部用户</a>
+      <span>用户管理</span>
     </span>
+    <ul>
+      <li nz-menu-item>
+        <span title>
+          <a routerLink="/setting/user">全部用户</a>
+        </span>
+      </li>
+      <li nz-menu-item>
+        <span title>
+          <a routerLink="/setting/user/new">新增用户</a>
+        </span>
+      </li>
+    </ul>
   </li>
   <li nz-menu-item>
     <span title>
-      <i class="anticon anticon-plus"></i>
-      <a routerLink="/setting/user/new">新增用户</a>
+      <i class="anticon anticon-book"></i>
+      <a routerLink="/setting/order-type">类型管理</a>
     </span>
   </li>
 </ul>

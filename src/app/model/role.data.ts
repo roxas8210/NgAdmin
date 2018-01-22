@@ -4,4 +4,7 @@ export const Role = [{
 }, {
     label: '程序员',
     value: 'programmer'
+}, {
+    label: '业务员',
+    value: 'sales'
 }];

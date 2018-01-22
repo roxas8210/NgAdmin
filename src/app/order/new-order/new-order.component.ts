@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Order } from '../order.service';
+import { forEach } from '../../../../node_modules/_@angular_router@5.1.3@@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-new-order',
@@ -15,9 +17,16 @@ export class NewOrderComponent implements OnInit {
 
   orderForm: FormGroup;
 
+  designers;
+
+  programmers;
+
+  saless;
+
   constructor(
     private _message: NzMessageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject('orderService') private orderService: Order
   ) {
     this.companyForm = this.fb.group({
       companyName: ['', [Validators.required]],
@@ -31,8 +40,9 @@ export class NewOrderComponent implements OnInit {
     });
     this.orderForm = this.fb.group({
       orderType: ['', [Validators.required]],
+      price: [5800, [Validators.required]],
       designer: ['', [Validators.required]],
-      programer: ['', [Validators.required]],
+      programmer: ['', [Validators.required]],
       orderDate: ['', [Validators.required]],
       sales: ['', [Validators.required]]
     });
@@ -69,6 +79,35 @@ export class NewOrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.orderService.getRole('designer').subscribe(val => {
+      console.log('设计师是：', val);
+      const newVal = [];
+      val.forEach(v => {
+        newVal.push(v._source);
+      });
+      console.log(newVal);
+      this.designers = newVal;
+    });
+
+    this.orderService.getRole('programmer').subscribe(val => {
+      console.log('程序员是：', val);
+      const newVal = [];
+      val.forEach(v => {
+        newVal.push(v._source);
+      });
+      console.log(newVal);
+      this.programmers = newVal;
+    });
+
+    this.orderService.getRole('sales').subscribe(val => {
+      console.log('业务员是：', val);
+      const newVal = [];
+      val.forEach(v => {
+        newVal.push(v._source);
+      });
+      console.log(newVal);
+      this.saless = newVal;
+    });
   }
 
 }

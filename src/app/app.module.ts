@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { OrderModule } from './order/order.module';
 import { SettingModule } from './setting/setting.module';
+import { LoginModule } from './login/login.module';
 
 import { routing } from './app.routers';
 import { Deepstream } from './deepstream.service';
@@ -24,6 +25,7 @@ import { AuthGuard } from './auth-guard.service';
     HttpClientModule,
     OrderModule,
     SettingModule,
+    LoginModule,
     ReactiveFormsModule,
     NgZorroAntdModule.forRoot({ extraFontName: 'anticon', extraFontUrl: '../assets/fonts/iconfont' }),
   ],

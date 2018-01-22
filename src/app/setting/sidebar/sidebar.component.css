@@ -3,7 +3,8 @@ li i {
   color: white;
   margin-right: 10px;
 }
-li a {
+li a,
+li span {
   font-size: 18px;
   color: white;
 }

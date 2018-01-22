@@ -11,7 +11,7 @@
         <label nz-form-item-required>公司名</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="companyName" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="companyName" [nzType]="'text'" [nzPlaceHolder]="'请填写公司名'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <label nz-form-item-required>法人</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="legalPerson" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="legalPerson" [nzType]="'text'" [nzPlaceHolder]="'请填写法人'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -29,7 +29,7 @@
         <label nz-form-item-required>负责人</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="responsiblePerson" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="responsiblePerson" [nzType]="'text'" [nzPlaceHolder]="'请填写负责人'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -38,17 +38,17 @@
         <label nz-form-item-required>电话</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="phone" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'"
+        <nz-input formControlName="phone" [nzType]="'text'" [nzPlaceHolder]="'请填写联系人电话号码'"
           [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
     <div nz-form-item nz-row>
       <div nz-form-label nz-col [nzSpan]="7">
-        <label nz-form-item-required>E-mail</label>
+        <label nz-form-item-required>邮箱</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="email" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="email" [nzType]="'text'" [nzPlaceHolder]="'请填写邮箱'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -57,7 +57,7 @@
         <label nz-form-item-required>传真</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="fax" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="fax" [nzType]="'text'" [nzPlaceHolder]="'请填写传真'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -66,7 +66,7 @@
         <label nz-form-item-required>地址</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="address" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="address" [nzType]="'text'" [nzPlaceHolder]="'请填写地址'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
@@ -75,41 +75,93 @@
         <label nz-form-item-required>网址</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="website" [nzType]="'text'" [nzPlaceHolder]="'async validate try to write JasonWood'" [nzSize]="'large'">
+        <nz-input formControlName="website" [nzType]="'text'" [nzPlaceHolder]="'请填写申请的域名地址'" [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
-    <!-- <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSpan]="7">
-        <label nz-form-item-required>部门</label>
-      </div>
-      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-select style="width: 220px;" formControlName="department" [nzPlaceHolder]="'choose option'" nzAllowClear>
-          <nz-option *ngFor="let option of depart" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
-          </nz-option>
-        </nz-select>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-form-label nz-col [nzSpan]="7">
-        <label nz-form-item-required>职别</label>
-      </div>
-      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-select style="width: 220px;" formControlName="role" [nzPlaceHolder]="'choose option'" nzAllowClear>
-          <nz-option *ngFor="let role of roles" [nzLabel]="role.label" [nzValue]="role.value" [nzDisabled]="role.disabled">
-          </nz-option>
-        </nz-select>
-      </div>
-    </div>
-    <div nz-form-item nz-row>
-      <div nz-col [nzOffset]="7" [nzSpan]="12" nz-form-control>
-        <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!userForm.valid" type="submit">提交</button>
-      </div>
-    </div> -->
   </form>
 </div>
 <div class="step2" *ngIf="current === 1">
   <h1>填写单的信息</h1>
+  <form nz-form [formGroup]="orderForm" (ngSubmit)="submitForm($event,userForm.value)">
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>类型</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-select style="width: 120px;" formControlName="orderType" [nzPlaceHolder]="'请选择类型'" nzAllowClear>
+          <nz-option
+            *ngFor="let orderType of orderTypes"
+            [nzLabel]="orderType.username"
+            [nzValue]="orderType.username" >
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>价钱</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-input-number 
+        formControlName="price" 
+        [nzStep]="500"></nz-input-number>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>设计师</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-select style="width: 120px;" formControlName="designer" [nzPlaceHolder]="'请选择设计师'" nzAllowClear>
+          <nz-option
+            *ngFor="let designer of designers"
+            [nzLabel]="designer.username"
+            [nzValue]="designer.username" >
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>程序员</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-select style="width: 120px;" formControlName="programmer" [nzPlaceHolder]="'请选择程序员'" nzAllowClear>
+          <nz-option
+            *ngFor="let programmer of programmers"
+            [nzLabel]="programmer.username"
+            [nzValue]="programmer.username" >
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>下单日期</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-datepicker 
+        formControlName="orderDate" 
+        [nzFormat]="'YYYY-MM-DD'" 
+        [nzPlaceHolder]="'请选择下单日期'"></nz-datepicker>
+      </div>
+    </div>
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="7">
+        <label nz-form-item-required>业务员</label>
+      </div>
+      <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+        <nz-select style="width: 120px;" formControlName="sales" [nzPlaceHolder]="'请选择业务员'" nzAllowClear>
+          <nz-option
+            *ngFor="let sales of saless"
+            [nzLabel]="sales.username"
+            [nzValue]="sales.username" >
+          </nz-option>
+        </nz-select>
+      </div>
+    </div>
+  </form>
 </div>
 
 <div class="steps-action">

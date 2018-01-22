@@ -1,0 +1,59 @@
+<div nz-row>
+  <div nz-col [nzSpan]="6">
+    <button (click)="addType()" nz-button [nzType]="'primary'">
+      <i class="anticon anticon-plus"></i><span>添加类型</span>
+    </button>
+  </div>
+</div>
+<nz-table #nzTable [nzAjaxData]="data" [nzIsPagination]="false">
+  <thead nz-thead>
+    <tr>
+      <th nz-th><span>类型</span></th>
+      <th nz-th><span>子类型</span></th>
+      <th nz-th><span>操作</span></th>
+    </tr>
+  </thead>
+  <tbody nz-tbody>
+      <tr nz-tbody-tr *ngIf="addStatus === true">
+        <td nz-td>
+          <nz-input 
+          [(ngModel)]="mainType" 
+          [nzPlaceHolder]="'请填写主类型'" 
+          ></nz-input>
+        </td>
+        <td nz-td>
+          <nz-tag *ngFor="let subType of subTypes; let i = index;"
+          [nzClosable]="i !== 0"
+          (nzClose)="handleClose(subType)">
+          {{subType}}
+          </nz-tag>
+          <button nz-button *ngIf="!inputVisible"
+            [nzSize]="'small'" [nzType]="'dashed'"
+            (click)="showInput()">+ 新增子类</button>
+          <input nz-input #input
+            *ngIf="inputVisible" type="text"
+            [(ngModel)]="inputValue"
+            style="width: 78px;"
+            (blur)="handleInputConfirm()" 
+            (keydown.enter)="handleInputConfirm()">
+        </td>
+        <td nz-td>
+          <button (click)="typeSubmit()" nz-button [nzType]="'primary'">
+            <span>确定</span>
+          </button>
+        </td>
+      </tr>
+      <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+        <td nz-td>{{data.mainType}}</td>
+        <td nz-td>
+          <nz-tag *ngFor="let sub of data.subType">
+            {{sub}}
+          </nz-tag>
+        <td nz-td>
+          <button nz-button [nzType]="'primary'">
+            <span>删除</span>
+          </button>
+        </td>
+      </tr>
+  </tbody>
+</nz-table>

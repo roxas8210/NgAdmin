@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 import { User } from '../../model/user.model';
 import { NzModalService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './user-item.component.html',
   styleUrls: ['./user-item.component.css']
 })
-export class UserItemComponent implements OnInit, OnDestroy {
+export class UserItemComponent implements OnInit {
 
   @Input() user;
   @Output() removeUser: EventEmitter<string> = new EventEmitter<string> ();
@@ -26,10 +26,6 @@ export class UserItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userObj = this.user._source;
     this.userId = this.user._id;
-  }
-
-  ngOnDestroy() {
-    console.log(`onDestroy`);
   }
 
   onDelete() {

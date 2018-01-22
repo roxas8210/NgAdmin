@@ -16,6 +16,10 @@ export const routes: Routes = [{
         redirectTo: '/setting/user',
         pathMatch: 'full'
     }]
+}, {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
 }];
 
 export const routing = RouterModule.forRoot(routes);

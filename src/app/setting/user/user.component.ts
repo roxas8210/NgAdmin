@@ -14,7 +14,7 @@ import { NzModalService } from 'ng-zorro-antd';
 })
 export class UserComponent implements OnInit {
 
-  userArray;
+  userArray = [];
 
   search = new FormControl();
 
