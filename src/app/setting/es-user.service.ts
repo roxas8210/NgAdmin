@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Deepstream } from '../deepstream.service';
 import { Observable } from 'rxjs/Observable';
+import { Type } from '../model/order-type.model';
 
 @Injectable()
 export class Esuser {
@@ -102,6 +103,43 @@ export class Esuser {
                     observer.error(error);
                 } else {
                     console.log('新增类型结果：', data);
+                    observer.next(data);
+                }
+            });
+        });
+    }
+
+    getAllOrderTypes(): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('get-all-ordertype', '', (error, data) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('全部类型', data);
+                    const orderTypes = [];
+                    data.forEach(v => {
+                        const types: Type = {
+                            id: v._id,
+                            mainType: v._source.mainType,
+                            subType: v._source.subType
+                        };
+                        orderTypes.push(types);
+                    });
+                    observer.next(orderTypes);
+                }
+            });
+        });
+    }
+
+    removeOrderType(typeId): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('remove-ordertype', typeId, (error, data) => {
+                if (error) {
+                    console.log('删除类型发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('rpc删除类型结果', data);
                     observer.next(data);
                 }
             });

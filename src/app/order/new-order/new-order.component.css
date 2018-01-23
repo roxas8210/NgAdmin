@@ -11,3 +11,11 @@
 .steps-action {
     margin-top: 24px;
 }
+
+.step{
+    text-align: center;
+}
+
+.step h1{
+    line-height: 3em;
+}

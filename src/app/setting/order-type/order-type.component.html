@@ -5,7 +5,14 @@
     </button>
   </div>
 </div>
-<nz-table #nzTable [nzAjaxData]="data" [nzIsPagination]="false">
+<nz-spin [nzTip]="'正在读取数据...'" *ngIf="data.length === 0">
+  <nz-alert 
+  [nzType]="'info'" 
+  [nzMessage]="'正在读取类型信息'" 
+  [nzDescription]="'正在读取类型信息，请耐心等待。'">
+  </nz-alert>
+</nz-spin>
+<nz-table *ngIf="data.length > 0" #nzTable [nzAjaxData]="data" [nzIsPagination]="false">
   <thead nz-thead>
     <tr>
       <th nz-th><span>类型</span></th>
@@ -51,10 +58,7 @@
             {{sub}}
           </nz-tag>
         <td nz-td>
-          <button nz-button [nzType]="'primary'">
-            <span>编辑</span>
-          </button>
-          <button nz-button [nzType]="'danger'">
+          <button (click)="removeType(data.id)" nz-button [nzType]="'danger'">
             <span>删除</span>
           </button>
         </td>

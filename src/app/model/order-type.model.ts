@@ -1,4 +1,5 @@
 export class Type {
+    id: string;
     mainType: string;
-    subType: Object;
+    subType: Array<string>;
 }

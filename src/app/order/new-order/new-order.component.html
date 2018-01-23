@@ -1,9 +1,10 @@
 <nz-steps [(nzCurrent)]="current">
   <nz-step [nzTitle]="'公司信息'"></nz-step>
   <nz-step [nzTitle]="'单的信息'"></nz-step>
+  <nz-step [nzTitle]="'上传'"></nz-step>
 </nz-steps>
 
-<div class="step1" *ngIf="current === 0">
+<div class="step1 step" *ngIf="current === 0">
   <h1>填写公司信息</h1>
   <form nz-form [formGroup]="companyForm" (ngSubmit)="submitForm($event,userForm.value)">
     <div nz-form-item nz-row>
@@ -35,14 +36,24 @@
     </div>
     <div nz-form-item nz-row>
       <div nz-form-label nz-col [nzSpan]="7">
-        <label nz-form-item-required>电话</label>
+        <label nz-form-item-required>手机</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-input formControlName="phone" [nzType]="'text'" [nzPlaceHolder]="'请填写联系人电话号码'"
+        <nz-input formControlName="phone" [nzType]="'text'" [nzPlaceHolder]="'请填写联系人手机号码'"
           [nzSize]="'large'">
         </nz-input>
       </div>
     </div>
+    <div nz-form-item nz-row>
+        <div nz-form-label nz-col [nzSpan]="7">
+          <label nz-form-item-required>固话</label>
+        </div>
+        <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
+          <nz-input formControlName="telephone" [nzType]="'text'" [nzPlaceHolder]="'请填写公司固话'"
+            [nzSize]="'large'">
+          </nz-input>
+        </div>
+      </div>
     <div nz-form-item nz-row>
       <div nz-form-label nz-col [nzSpan]="7">
         <label nz-form-item-required>邮箱</label>
@@ -81,7 +92,7 @@
     </div>
   </form>
 </div>
-<div class="step2" *ngIf="current === 1">
+<div class="step2 step" *ngIf="current === 1">
   <h1>填写单的信息</h1>
   <form nz-form [formGroup]="orderForm" (ngSubmit)="submitForm($event,userForm.value)">
     <div nz-form-item nz-row>
@@ -89,11 +100,26 @@
         <label nz-form-item-required>类型</label>
       </div>
       <div nz-col [nzSpan]="12" nz-form-control nzHasFeedback>
-        <nz-select style="width: 120px;" formControlName="orderType" [nzPlaceHolder]="'请选择类型'" nzAllowClear>
+        <nz-select (nzOpenChange)="getSubTypes()" 
+        style="width: 120px;" 
+        formControlName="orderType" 
+        [nzPlaceHolder]="'请选择类型'" 
+        nzAllowClear>
           <nz-option
             *ngFor="let orderType of orderTypes"
-            [nzLabel]="orderType.username"
-            [nzValue]="orderType.username" >
+            [nzLabel]="orderType.mainType"
+            [nzValue]="orderType.id" >
+          </nz-option>
+        </nz-select>
+        <nz-select  
+        formControlName="subType" 
+        [nzPlaceHolder]="'请选择子类型'" 
+        [nzSize]="size" 
+        [nzMode]="'tags'">
+          <nz-option
+            *ngFor="let subType of subTypes"
+            [nzLabel]="subType"
+            [nzValue]="subType" >
           </nz-option>
         </nz-select>
       </div>
@@ -163,8 +189,16 @@
     </div>
   </form>
 </div>
+<div class="step3" 
+*ngIf="current === 2" 
+nz-row [nzType]="'flex'" 
+[nzJustify]="'center'" 
+style="flex-direction: column;">
+  <nz-progress [ngModel]="_percent" [nzType]="'circle'"></nz-progress>
+  <p>{{uploadContent}}</p>
+</div>
 
-<div class="steps-action">
+<div class="steps-action" nz-row [nzType]="'flex'" [nzJustify]="'center'">
   <button nz-button [nzType]="'default'" (click)="pre()" *ngIf="current > 0">
     <span>上一步</span>
   </button>

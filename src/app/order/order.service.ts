@@ -22,6 +22,89 @@ export class Order {
         });
     }
 
+    setCompany(company): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('set-company', company, (error, data) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('新增公司结果：', data);
+                    observer.next(data);
+                }
+            });
+        });
+    }
+
+    getCompany(companyId): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('get-one-company', companyId, (error, data) => {
+                if (error) {
+                    console.log('获取一间公司信息发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('这个公司数据：', data);
+                    const company = {
+                        id: data._id,
+                        address: data._source.address,
+                        companyName: data._source.companyName,
+                        email: data._source.email,
+                        fax: data._source.fax,
+                        legalPerson: data._source.legalPerson,
+                        phone: data._source.phone,
+                        responsiblePerson: data._source.responsiblePerson,
+                        telephone: data._source.telephone,
+                        website: data._source.website
+                    };
+                    observer.next(company);
+                }
+            });
+        });
+    }
+
+    setOrder(order): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('set-order', order, (error, data) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('新增单结果：', data);
+                    observer.next(data);
+                }
+            });
+        });
+    }
+
+    getAllOrders(): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('get-all-order', '', (error, data) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('全部单：', data);
+                    const orders = [];
+                    data.forEach(v => {
+                        const order = {
+                            id: v._id,
+                            companyId: v._source.companyId,
+                            designer: v._source.designer,
+                            orderDate: v._source.orderDate,
+                            orderType: v._source.orderType,
+                            price: v._source.price,
+                            programmer: v._source.programmer,
+                            sales: v._source.sales
+                        };
+                        orders.push(order);
+                    });
+                    observer.next(orders);
+                }
+            });
+        });
+    }
+
+
     setUsers(user): Observable<any> {
         return new Observable(observer => {
             this.dp.Instance.rpc.make('set-user', user, (error, data) => {

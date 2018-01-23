@@ -1,7 +1,7 @@
 <div style="width: 100%;">
   <nz-card>
     <ng-template #title>
-      {{userObj?.username}}
+      {{companyObj?.companyName}}
     </ng-template>
     <ng-template #extra>
       <button (click)="onUpdate()" nz-button [nzType]="'primary'" [nzShape]="'circle'">
@@ -12,7 +12,10 @@
       </button>
     </ng-template>
     <ng-template #body>
-      <p>{{userObj?.role}}</p>
+      <p>业务：{{order?.sales}}</p>
+      <p>网址：{{companyObj?.website}}</p>
+      <p>下单时间：{{order?.orderDate}}</p>
     </ng-template>
   </nz-card>
 </div>
+  

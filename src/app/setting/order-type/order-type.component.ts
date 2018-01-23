@@ -4,6 +4,8 @@ import { SendType } from '../../model/send-type.model';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Esuser } from '../es-user.service';
 
+import { NzModalService } from 'ng-zorro-antd';
+
 @Component({
   selector: 'app-order-type',
   templateUrl: './order-type.component.html',
@@ -12,6 +14,7 @@ import { Esuser } from '../es-user.service';
 export class OrderTypeComponent implements OnInit {
 
   constructor(
+    @Inject('modal') private modal: NzModalService,
     private _message: NzMessageService,
     @Inject('userService') private userService: Esuser
   ) { }
@@ -29,6 +32,9 @@ export class OrderTypeComponent implements OnInit {
   inputValue = '';
 
   ngOnInit() {
+    this.userService.getAllOrderTypes().subscribe(val => {
+      this.data = val;
+    });
   }
 
   addType(): void {
@@ -41,25 +47,25 @@ export class OrderTypeComponent implements OnInit {
     if (this.mainType === undefined) {
       this._message.create('error', '必须填写主类型');
     } else {
-      const sendType: SendType = {
+      const newType = {
         mainType: this.mainType,
-        subType: JSON.stringify(this.subTypes)
+        subType: this.subTypes
       };
-      const subTypeObj = {};
-      this.subTypes.forEach(val => {
-        Array.prototype.push.call(subTypeObj, val);
-      });
-      const newType: Type = {
-        mainType: this.mainType,
-        subType: subTypeObj
-      };
-      console.log('提交', newType);
-      this.data.push(newType);
-      console.log(this.data);
       this.userService.setOrderType(newType).subscribe(val => {
         console.log(val);
+        if (val.result == 'created') {
+          const resType: Type = {
+            id: val._id,
+            mainType: newType.mainType,
+            subType: newType.subType
+          };
+          this._message.create('success', '成功增加类型');
+          this.data.push(resType);
+          this.addStatus = !this.addStatus;
+          this.mainType = undefined;
+          this.subTypes = [];
+        }
       });
-      this.addStatus = !this.addStatus;
     }
   }
 
@@ -77,5 +83,24 @@ export class OrderTypeComponent implements OnInit {
 
   handleClose(removedTag: any): void {
     this.subTypes = this.subTypes.filter(tag => tag !== removedTag);
+  }
+
+  removeType(typeId) {
+    const that = this;
+    this.modal.confirm({
+      title: '您是否确认要删除此用户？',
+      content: '<b>删除后该用户数据无法恢复，请再三确认。</b>',
+      onOk() {
+        that.userService.removeOrderType(typeId).subscribe(val => {
+          console.log(val);
+          if (val.result == 'deleted') {
+            that._message.create('success', '成功删除一个类型');
+            that.data = that.data.filter(type => {
+              return type.id !== typeId;
+            });
+          }
+        });
+      }
+    });
   }
 }

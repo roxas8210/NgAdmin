@@ -14,8 +14,13 @@
     [nzDescription]="'正在读取用户信息，请耐心等待。'">
     </nz-alert>
   </nz-spin>
-  <div *ngIf="userArray.length > 0">
-    <app-user-item 
+  <div *ngIf="userArray.length > 0" 
+    [nzType]="'flex'" 
+    [nzJustify]="'flex-start'"
+    nz-row style="flex-wrap: wrap;">
+    <app-user-item
+    nz-col 
+    style="width: 200px;" 
     (removeUser)="onDelete($event)" 
     [user]="user" *ngFor="let user of userArray"
     ></app-user-item>
