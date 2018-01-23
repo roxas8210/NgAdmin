@@ -1,6 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { Type } from '../../model/order-type.model';
 import { SendType } from '../../model/send-type.model';
+import { NzMessageService } from 'ng-zorro-antd';
+import { Esuser } from '../es-user.service';
 
 @Component({
   selector: 'app-order-type',
@@ -9,7 +11,10 @@ import { SendType } from '../../model/send-type.model';
 })
 export class OrderTypeComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private _message: NzMessageService,
+    @Inject('userService') private userService: Esuser
+  ) { }
 
   addStatus: Boolean = false;
 
@@ -33,18 +38,29 @@ export class OrderTypeComponent implements OnInit {
   }
 
   typeSubmit(): void {
-    const sendType: SendType = {
-      mainType: this.mainType,
-      subType: JSON.stringify(this.subTypes)
-    };
-    const newType: Type = {
-      mainType: this.mainType,
-      subType: this.subTypes
-    };
-    console.log('提交', newType);
-    this.data.push(newType);
-    console.log(this.data);
-    this.addStatus = !this.addStatus;
+    if (this.mainType === undefined) {
+      this._message.create('error', '必须填写主类型');
+    } else {
+      const sendType: SendType = {
+        mainType: this.mainType,
+        subType: JSON.stringify(this.subTypes)
+      };
+      const subTypeObj = {};
+      this.subTypes.forEach(val => {
+        Array.prototype.push.call(subTypeObj, val);
+      });
+      const newType: Type = {
+        mainType: this.mainType,
+        subType: subTypeObj
+      };
+      console.log('提交', newType);
+      this.data.push(newType);
+      console.log(this.data);
+      this.userService.setOrderType(newType).subscribe(val => {
+        console.log(val);
+      });
+      this.addStatus = !this.addStatus;
+    }
   }
 
   showInput(): void {

@@ -93,4 +93,18 @@ export class Esuser {
             });
         });
     }
+
+    setOrderType(orderType): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('set-order-type', orderType, (error, data) => {
+                if (error) {
+                    console.log('新增类型出错', error);
+                    observer.error(error);
+                } else {
+                    console.log('新增类型结果：', data);
+                    observer.next(data);
+                }
+            });
+        });
+    }
 }

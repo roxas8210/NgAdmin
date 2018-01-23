@@ -19,6 +19,7 @@
           <nz-input 
           [(ngModel)]="mainType" 
           [nzPlaceHolder]="'请填写主类型'" 
+          required
           ></nz-input>
         </td>
         <td nz-td>
@@ -51,6 +52,9 @@
           </nz-tag>
         <td nz-td>
           <button nz-button [nzType]="'primary'">
+            <span>编辑</span>
+          </button>
+          <button nz-button [nzType]="'danger'">
             <span>删除</span>
           </button>
         </td>
