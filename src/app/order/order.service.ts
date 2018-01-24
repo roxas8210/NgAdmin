@@ -1,6 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import { Deepstream } from '../deepstream.service';
 import { Observable } from 'rxjs/Observable';
+import { ESSearch } from '../model/essearch.model';
+import { Company } from '../model/company.model';
+
+import { Order as OrderData } from '../model/data-model/order.model';
+import { Order as OrderResponse } from '../model/response-data-model/order.model';
+import { CompanySearchResult } from '../model/combine-model/company-search-result.model';
 
 @Injectable()
 export class Order {
@@ -62,6 +68,27 @@ export class Order {
         });
     }
 
+    searchCompanys(company): Observable<CompanySearchResult[]> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('search-company', company, (error, data: ESSearch<Company>[]) => {
+                if (error) {
+                    console.log('发生错误');
+                    observer.error(error);
+                } else {
+                    const companyArray = [];
+                    data.forEach((val: ESSearch<Company>) => {
+                        const res: CompanySearchResult = {
+                            id: val._id,
+                            company: val._source.companyName
+                        };
+                        companyArray.push(res);
+                    });
+                    observer.next(companyArray);
+                }
+            });
+        });
+    }
+
     setOrder(order): Observable<any> {
         return new Observable(observer => {
             this.dp.Instance.rpc.make('set-order', order, (error, data) => {
@@ -76,9 +103,9 @@ export class Order {
         });
     }
 
-    getAllOrders(): Observable<any> {
+    getAllOrders(): Observable<OrderData[]> {
         return new Observable(observer => {
-            this.dp.Instance.rpc.make('get-all-order', '', (error, data) => {
+            this.dp.Instance.rpc.make('get-all-order', '', (error, data: ESSearch<OrderResponse>[]) => {
                 if (error) {
                     console.log('发生错误', error);
                     observer.error(error);
@@ -86,7 +113,7 @@ export class Order {
                     console.log('全部单：', data);
                     const orders = [];
                     data.forEach(v => {
-                        const order = {
+                        const order: OrderData = {
                             id: v._id,
                             companyId: v._source.companyId,
                             designer: v._source.designer,
@@ -94,7 +121,8 @@ export class Order {
                             orderType: v._source.orderType,
                             price: v._source.price,
                             programmer: v._source.programmer,
-                            sales: v._source.sales
+                            sales: v._source.sales,
+                            subType: v._source.subType
                         };
                         orders.push(order);
                     });
@@ -104,6 +132,34 @@ export class Order {
         });
     }
 
+    getOrdersByCompanyId(companyId): Observable<any> {
+        return new Observable(observer => {
+            this.dp.Instance.rpc.make('get-orders-by-companyid', companyId, (error, data) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('选择的公司关联的单有：', data);
+                    const orders = [];
+                    data.forEach(v => {
+                        const order: OrderData = {
+                            id: v._id,
+                            companyId: v._source.companyId,
+                            designer: v._source.designer,
+                            orderDate: v._source.orderDate,
+                            orderType: v._source.orderType,
+                            price: v._source.price,
+                            programmer: v._source.programmer,
+                            sales: v._source.sales,
+                            subType: v._source.subType
+                        };
+                        orders.push(order);
+                    });
+                    observer.next(orders);
+                }
+            });
+        });
+    }
 
     setUsers(user): Observable<any> {
         return new Observable(observer => {
