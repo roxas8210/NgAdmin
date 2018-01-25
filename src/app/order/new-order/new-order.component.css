@@ -13,9 +13,22 @@
 }
 
 .step{
-    text-align: center;
+    /* text-align: center; */
 }
 
 .step h1{
     line-height: 3em;
+}
+
+.step3{
+    text-align: center;
+}
+
+.step3 nz-progress{
+    margin: 0 auto;
+}
+
+.step3 p{
+    width: 100%;
+    text-align: center;
 }

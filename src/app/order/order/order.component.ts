@@ -34,7 +34,7 @@ export class OrderComponent implements OnInit {
 
   search = new FormControl();
 
-  companySearchRes: CompanySearchResult;
+  companySearchRes: CompanySearchResult[] = [];
 
   constructor(
     @Inject('modal') private modal: NzModalService,
@@ -55,15 +55,11 @@ export class OrderComponent implements OnInit {
         empty.push(new CompanySearchResult());
         return empty;
       }
-    }).subscribe((val: CompanySearchResult) => {
+    }).subscribe((val: CompanySearchResult[]) => {
       console.log('搜索到的公司：', val);
       this.dropdownSwitcher = true;
       this.companySearchRes = val;
     });
-  }
-
-  goSearch(userName: Observable<any>) {
-    console.log(userName);
   }
 
   getSearchCompany(id) {

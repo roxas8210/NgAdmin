@@ -10,10 +10,11 @@
   border: 1px solid #d9d9d9;
   border-radius: 4px;
   position: absolute;
-  bottom: -32px;
   width: 100%;
   height: auto;
   overflow: hidden;
+  z-index: 99;
+  background-color: white;
 }
 .search-container .company-search-result .company-search-item {
   width: 100%;

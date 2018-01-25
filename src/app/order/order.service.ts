@@ -132,16 +132,35 @@ export class Order {
         });
     }
 
+    resOrderChange(resOrder: ESSearch<OrderData>[]): OrderResponse[] {
+        const orders = [];
+        resOrder.forEach((v: ESSearch<OrderData>) => {
+            const order: OrderData = {
+                id: v._id,
+                companyId: v._source.companyId,
+                designer: v._source.designer,
+                orderDate: v._source.orderDate,
+                orderType: v._source.orderType,
+                price: v._source.price,
+                programmer: v._source.programmer,
+                sales: v._source.sales,
+                subType: v._source.subType
+            };
+            orders.push(order);
+        });
+        return orders;
+    }
+
     getOrdersByCompanyId(companyId): Observable<any> {
         return new Observable(observer => {
-            this.dp.Instance.rpc.make('get-orders-by-companyid', companyId, (error, data) => {
+            this.dp.Instance.rpc.make('get-orders-by-companyid', companyId, (error, data: ESSearch<OrderData>[]) => {
                 if (error) {
                     console.log('发生错误', error);
                     observer.error(error);
                 } else {
                     console.log('选择的公司关联的单有：', data);
                     const orders = [];
-                    data.forEach(v => {
+                    data.forEach((v: ESSearch<OrderData>) => {
                         const order: OrderData = {
                             id: v._id,
                             companyId: v._source.companyId,
