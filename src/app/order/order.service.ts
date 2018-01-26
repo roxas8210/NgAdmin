@@ -104,7 +104,7 @@ export class Order {
     }
 
     getAllOrders(): Observable<OrderData[]> {
-        return new Observable(observer => {
+        return Observable.create(observer => {
             this.dp.Instance.rpc.make('get-all-order', '', (error, data: ESSearch<OrderResponse>[]) => {
                 if (error) {
                     console.log('发生错误', error);
@@ -132,6 +132,35 @@ export class Order {
         });
     }
 
+    getNewlyOrders(): Observable<OrderData[]> {
+        return Observable.create(observer => {
+            this.dp.Instance.rpc.make('get-newly-order', '', (error, data: ESSearch<OrderResponse>[]) => {
+                if (error) {
+                    console.log('发生错误', error);
+                    observer.error(error);
+                } else {
+                    console.log('全部单：', data);
+                    const orders = [];
+                    data.forEach(v => {
+                        const order: OrderData = {
+                            id: v._id,
+                            companyId: v._source.companyId,
+                            designer: v._source.designer,
+                            orderDate: v._source.orderDate,
+                            orderType: v._source.orderType,
+                            price: v._source.price,
+                            programmer: v._source.programmer,
+                            sales: v._source.sales,
+                            subType: v._source.subType
+                        };
+                        orders.push(order);
+                    });
+                    observer.next(orders);
+                }
+            });
+        });
+    }
+    
     resOrderChange(resOrder: ESSearch<OrderData>[]): OrderResponse[] {
         const orders = [];
         resOrder.forEach((v: ESSearch<OrderData>) => {
@@ -175,94 +204,6 @@ export class Order {
                         orders.push(order);
                     });
                     observer.next(orders);
-                }
-            });
-        });
-    }
-
-    setUsers(user): Observable<any> {
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('set-user', user, (error, data) => {
-                if (error) {
-                    console.log('发生错误', error);
-                    observer.error(error);
-                } else {
-                    console.log('rpc返回的数据为', data);
-                    observer.next(data);
-                }
-            });
-        });
-    }
-
-    removeUser(userId): Observable<any> {
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('remove-user', userId, (error, data) => {
-                if (error) {
-                    console.log('删除用户发生错误', error);
-                    observer.error(error);
-                } else {
-                    console.log('rpc删除结果', data);
-                    observer.next(data);
-                }
-            });
-        });
-    }
-
-    getAllUsers(): Observable<any> {
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('get-all-user', '', (error, data) => {
-                if (error) {
-                    console.log('发生错误', error);
-                    observer.error(error);
-                } else {
-                    console.log('全部用户', data);
-                    observer.next(data);
-                }
-            });
-        });
-    }
-
-    getUser(userId): Observable<any> {
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('get-one-user', userId, (error, data) => {
-                if (error) {
-                    console.log('获取一个用户发生错误', error);
-                    observer.error(error);
-                } else {
-                    console.log('这个用户数据：', data);
-                    observer.next(data);
-                }
-            });
-        });
-    }
-
-    searchUsers(username): Observable<any> {
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('search-user', username, (error, data) => {
-                if (error) {
-                    console.log('发生错误');
-                    observer.error(error);
-                } else {
-                    console.log('搜索结果', data);
-                    observer.next(data);
-                }
-            });
-        });
-    }
-
-    updateUser(userId, data): Observable<any> {
-        const postData = {
-            id: userId,
-            data: data
-        };
-        return new Observable(observer => {
-            this.dp.Instance.rpc.make('update-user', postData, (error, res) => {
-                if (error) {
-                    console.log('更新发生错误', error);
-                    observer.error(error);
-                } else {
-                    console.log('更新成功', res);
-                    observer.next(res);
                 }
             });
         });

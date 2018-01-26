@@ -47,24 +47,24 @@
     </div>
   </div>
   <div class="result" *ngIf="selectedIndex == 1">
-      <nz-spin [nzTip]="'正在读取数据...'" *ngIf="searchArray.length === 0">
-        <nz-alert 
-        [nzType]="'info'" 
-        [nzMessage]="'正在读取单信息'" 
-        [nzDescription]="'正在读取单信息，请耐心等待。'">
-        </nz-alert>
-      </nz-spin>
-      <div *ngIf="searchArray.length > 0" 
-        [nzType]="'flex'" 
-        [nzJustify]="'space-around'"
-        nz-row style="flex-wrap: wrap;">
-        <h1>搜索“{{keyword}}”的结果:</h1>
-        <app-order-item
-        nz-col 
-        style="width: 400px;margin-bottom: 20px;" 
-        (removeUser)="onDelete($event)" 
-        [order]="order" *ngFor="let order of searchArray"
-        ></app-order-item>
-      </div>
+    <nz-spin [nzTip]="'正在读取数据...'" *ngIf="searchArray.length === 0">
+      <nz-alert 
+      [nzType]="'info'" 
+      [nzMessage]="'正在读取单信息'" 
+      [nzDescription]="'正在读取单信息，请耐心等待。'">
+      </nz-alert>
+    </nz-spin>
+    <div *ngIf="searchArray.length > 0" 
+      [nzType]="'flex'" 
+      [nzJustify]="'space-around'"
+      nz-row style="flex-wrap: wrap;">
+      <h1>搜索“{{keyword}}”的结果:</h1>
+      <app-order-item
+      nz-col 
+      style="width: 400px;margin-bottom: 20px;" 
+      (removeUser)="onDelete($event)" 
+      [order]="order" *ngFor="let order of searchArray"
+      ></app-order-item>
     </div>
+  </div>
 </div>

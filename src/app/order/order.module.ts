@@ -5,12 +5,15 @@ import { routing } from './order.routes';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { NewOrderComponent } from './new-order/new-order.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PipeModule } from '../pipe/pipe.module';
 
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { Deepstream } from '../deepstream.service';
 import { Order } from './order.service';
 import { Esuser } from '../setting/es-user.service';
 import { OrderItemComponent } from './order-item/order-item.component';
+import { CompanyModule } from '../company/company.module';
+import { OrderAccountComponent } from './order-account/order-account.component';
 
 @NgModule({
   imports: [
@@ -18,9 +21,17 @@ import { OrderItemComponent } from './order-item/order-item.component';
     routing,
     NgZorroAntdModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    PipeModule,
+    CompanyModule
   ],
-  declarations: [OrderComponent, SidebarComponent, NewOrderComponent, OrderItemComponent],
+  declarations: [
+    OrderComponent,
+    SidebarComponent,
+    NewOrderComponent,
+    OrderItemComponent,
+    OrderAccountComponent
+  ],
   providers: [{
     provide: 'deepstream',
     useClass: Deepstream

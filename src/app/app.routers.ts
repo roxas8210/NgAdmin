@@ -17,8 +17,16 @@ export const routes: Routes = [{
         pathMatch: 'full'
     }]
 }, {
+    path: 'company',
+    redirectTo: '/company',
+    pathMatch: 'full'
+}, {
+    path: 'order-account',
+    redirectTo: '/order-account',
+    pathMatch: 'full'
+}, {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/order',
     pathMatch: 'full'
 }];
 

@@ -42,13 +42,15 @@ export class OrderComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.orderService.getAllOrders().subscribe(val => {
+    this.orderService.getNewlyOrders().subscribe(val => {
       this.orderArray = val;
       console.log(val);
+    }, error => {
+      console.log('订阅错误');
     });
-    this.search.valueChanges.debounceTime(1000).switchMap((val: string) => {
+    this.search.valueChanges.debounceTime(500).switchMap((val: string) => {
       val = val.replace(/^\s+|\s+$/g, '');
-      if (val != '' || val.length > 0) {
+      if (val !== '' || val.length > 0) {
         return this.orderService.searchCompanys(val);
       } else {
         const empty = [];

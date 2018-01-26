@@ -13,8 +13,8 @@
     </ng-template>
     <ng-template #body>
       <p>业务：{{order?.sales}}</p>
-      <p>网址：{{companyObj?.website}}</p>
-      <p>下单时间：{{order?.orderDate}}</p>
+      <p>网址：<a [href]="companyObj?.website | websiteCompleter:'http://'"  target="_blank">{{companyObj?.website}}</a></p>
+      <p>下单时间：{{order?.orderDate | date:"yyyy/MM/dd"}}</p>
     </ng-template>
   </nz-card>
 </div>

@@ -1,0 +1,8 @@
+<nz-transfer
+    [nzDataSource]="orderList"
+    nzShowSearch
+    [nzFilterOption]="filterOption"
+    (nzSearchChange)="search($event)"
+    (nzSelectChange)="select($event)"
+    (nzChange)="change($event)">
+</nz-transfer>

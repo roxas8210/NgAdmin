@@ -13,10 +13,9 @@ import { Deepstream } from './deepstream.service';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './auth-guard.service';
 
-
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
