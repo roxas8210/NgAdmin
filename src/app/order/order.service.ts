@@ -42,6 +42,19 @@ export class Order {
         });
     }
 
+    getCompanysByIds(companyIds: Array<string>) {
+        return Observable.create(observer => {
+            this.dp.Instance.rpc.make('get-companys-by-ids', companyIds, (error, data) => {
+                if (error) {
+                    console.log('获取公司信息出错', error);
+                    observer.error(error);
+                } else {
+                    observer.next(data);
+                }
+            });
+        });
+    }
+
     getCompany(companyId): Observable<any> {
         return new Observable(observer => {
             this.dp.Instance.rpc.make('get-one-company', companyId, (error, data) => {

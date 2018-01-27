@@ -5,4 +5,7 @@
     (nzSearchChange)="search($event)"
     (nzSelectChange)="select($event)"
     (nzChange)="change($event)">
+    <ng-template #render let-item>
+    {{item.title}}
+    </ng-template>
 </nz-transfer>
